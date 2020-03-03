@@ -328,6 +328,11 @@ public class CarAI : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (collision.relativeVelocity.magnitude > 3)
+        {
+            car_collider.GetComponent<DeformableMesh>().OnCollisionEnter(collision);
+        }
+
         if (collision.other.tag != "Collidable")
             return;
 
@@ -339,14 +344,8 @@ public class CarAI : MonoBehaviour
         if (working)
         {
             working = false;
-           // if (Controller.PLAYER.working)
-             //   StartCoroutine("SpawnNewEnemyCar", 2f);
         }
-
-        if (collision.relativeVelocity.magnitude > 3)
-        {
-            car_collider.GetComponent<DeformableMesh>().OnCollisionEnter(collision);
-        }
+       
     }
 
     public IEnumerator SpawnNewEnemyCar(float time)
