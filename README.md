@@ -11,3 +11,4 @@
 <br/><br/>
 # Journal
  * [29/02/2020](GitHub/Journal/29-02-2020.md)
+ * [01/03/2020](GitHub/Journal/01-03-2020.md)
