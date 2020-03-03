@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class CarController : MonoBehaviour
 {
-
-   
-
     /*
      * Main variables
      */
@@ -33,9 +30,6 @@ public class CarController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
     }
-
-    
-
 
     /*
      * Fixed Update
@@ -132,22 +126,24 @@ public class CarController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.other.tag != "Collidable")
-            return;
-
         //Hitted bottom
         if (collision.collider is BoxCollider)
             return;
-
-        if(working)
-        {
-            working = false;
-        }
 
         if (collision.relativeVelocity.magnitude > 3)
         {
             car_collider.GetComponent<DeformableMesh>().OnCollisionEnter(collision);
         }
+
+        if (collision.other.tag != "Collidable")
+            return;
+
+        
+
+        if(working)
+        {
+            working = false;
+        }   
     }
 
 
