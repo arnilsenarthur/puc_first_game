@@ -10,7 +10,7 @@
 * [Informações](#informações)
 <br/><br/>
 # Journal
-* [29/02/2020](GitHub/Journal/29-02-2020.md)
-* [01/03/2020](GitHub/Journal/01-03-2020.md)
-* [02/03/2020](GitHub/Journal/02-03-2020.md)
+* [29/02/2020 - Dia 1](GitHub/Journal/29-02-2020.md)
+* [01/03/2020 - Dia 2](GitHub/Journal/01-03-2020.md)
+* [02/03/2020 - Dia 3](GitHub/Journal/02-03-2020.md)
 
