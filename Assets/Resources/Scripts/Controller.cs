@@ -8,8 +8,10 @@ public class Controller : MonoBehaviour
 
     GameObject[] wheels;
     GameObject collider;
-   public GameObject plane;
+    public GameObject plane;
     public bool working = true;
+
+    public bool car_mode = true;
 
     private void Start()
     {
@@ -30,6 +32,19 @@ public class Controller : MonoBehaviour
                 ToCarMode();
             }
         }
+
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            if(car_mode)
+            {
+                GetComponent<CarController>().Repair();
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.F3))
+        {
+            Application.LoadLevel(Application.loadedLevel);
+        }
     }
 
 
@@ -46,8 +61,8 @@ public class Controller : MonoBehaviour
         rb.constraints = RigidbodyConstraints.FreezeRotation;
         rb.useGravity = false;
         rb.velocity = new Vector3(0,0, rb.velocity.z);
-       // rb.AddForce(new Vector3(0, 500f, 0), ForceMode.Force);
-
+        // rb.AddForce(new Vector3(0, 500f, 0), ForceMode.Force);
+        car_mode = false;
 
         gameObject.AddComponent<PlaneController>();
         StartCoroutine("EnablePlane", 2f);
@@ -79,6 +94,7 @@ public class Controller : MonoBehaviour
         rb.useGravity = true;
         plane.GetComponent<MeshRenderer>().enabled = false;
 
+        car_mode = true;
         gameObject.AddComponent<CarController>();
 
         gameObject.GetComponent<CarController>().wheels = wheels;

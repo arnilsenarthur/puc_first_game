@@ -119,15 +119,24 @@ public class CarController : MonoBehaviour
     private void OnGUI()
     {
         GUI.Label(new Rect(10, 10, 300, 30), "Speed: " + speedometer);
+        GUI.Label(new Rect(10, 30, 300, 30), "F3 to restart");
+        GUI.Label(new Rect(10, 50, 300, 30), "P to change mode");
+        GUI.Label(new Rect(10, 70, 300, 30), "R to repair");
     }
 
 
     List<Vector3> def = new List<Vector3>();
+    
+    public void Repair()
+    {
+        car_collider.GetComponent<DeformableMesh>().Repair();
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
         //Hitted bottom
         if (collision.collider is BoxCollider)
+            if(((BoxCollider) collision.collider).size.y == 0)
             return;
 
         if (collision.relativeVelocity.magnitude > 3)
@@ -142,6 +151,8 @@ public class CarController : MonoBehaviour
 
         if(working)
         {
+            Debug.Log(collision.other);
+            //Debug.Break();
             working = false;
         }   
     }

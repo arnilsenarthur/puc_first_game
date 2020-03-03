@@ -26,6 +26,17 @@ public class DeformableMesh : MonoBehaviour
         iVerts = m.vertices;
     }
 
+    public void Repair()
+    {
+        m.vertices = iVerts;
+        mc.sharedMesh = m;
+
+        //Recalculate mesh stuff
+        ///Currently gets unity to recalc normals. Could be optimized and improved by doing it ourselves.
+        m.RecalculateNormals();
+        m.RecalculateBounds();
+    }
+
     public void OnCollisionEnter(Collision collision)
     {
 

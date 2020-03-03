@@ -119,5 +119,7 @@ public class PlaneController : MonoBehaviour
     private void OnGUI()
     {
         GUI.Label(new Rect(10, 10, 300, 30), "Speed: " + speedometer);
+        GUI.Label(new Rect(10, 30, 300, 30), "F3 to restart");
+        GUI.Label(new Rect(10, 50, 300, 30), "P to change mode");
     }
 }
