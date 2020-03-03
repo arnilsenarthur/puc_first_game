@@ -51,11 +51,12 @@ public class Controller : MonoBehaviour
 
     public void ToPlaneMode()
     {
-        Rigidbody rb = GetComponent<Rigidbody>();
         wheels = gameObject.GetComponent<CarController>().wheels;
         collider = gameObject.GetComponent<CarController>().car_collider;
-        
+
         Destroy(gameObject.GetComponent<CarController>());
+        Rigidbody rb = GetComponent<Rigidbody>();
+      
         rb.mass = 1f;
         rb.angularVelocity = Vector3.zero;
         rb.constraints = RigidbodyConstraints.FreezeRotation;

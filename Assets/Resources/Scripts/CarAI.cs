@@ -268,7 +268,6 @@ public class CarAI : MonoBehaviour
             rb.transform.localRotation = Quaternion.RotateTowards(rb.transform.localRotation, Quaternion.Euler(transform.localEulerAngles.x, transform.localEulerAngles.y, 0), 300f * Time.fixedDeltaTime);
 
 
-
             //Max speed limit
             if (speedometer > maxSpeed)
             {

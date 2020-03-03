@@ -91,7 +91,11 @@ public class CarController : MonoBehaviour
             //Add car stability
             rb.transform.rotation = Quaternion.RotateTowards(rb.transform.rotation, Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y, 0), 75f * Time.fixedDeltaTime);
 
-            
+            //Car turned more than max
+            if(!(transform.eulerAngles.y < 70 || transform.eulerAngles.y > 360-70))
+            {
+                working = false;                
+            }
 
             //Max speed limit
             if (speedometer > maxSpeed)
@@ -105,6 +109,7 @@ public class CarController : MonoBehaviour
                 rb.AddForce(fw * acceleration, ForceMode.Acceleration);
             }
         }
+      
 
         //Tires rotation animation
         foreach (GameObject o in wheels)
