@@ -4,7 +4,7 @@
 
 ### Informações:
 **Criador:** Árnilsen Arthur Castilho Lopes<br/>
-**Data de Início:** 29/01/2020
+**Data de Início:** 29/02/2020
 <br/><br/>
 ### Links:
 * [Informações](#informações)
