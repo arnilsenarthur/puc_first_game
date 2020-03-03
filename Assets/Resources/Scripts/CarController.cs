@@ -94,7 +94,8 @@ public class CarController : MonoBehaviour
             //Car turned more than max
             if(!(transform.eulerAngles.y < 70 || transform.eulerAngles.y > 360-70))
             {
-                working = false;                
+                working = false;
+                rb.AddForce(new Vector3(0, 0, 1) * acceleration * 20f, ForceMode.Acceleration);
             }
 
             //Max speed limit

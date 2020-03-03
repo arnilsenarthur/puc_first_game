@@ -16,10 +16,10 @@ TagManager:
   - 
   - PostProcessing
   - AIAvoid
-  - 
-  - 
-  - 
-  - 
+  - Gun
+  - Player
+  - Bullet
+  - InvisibleWalls
   - 
   - 
   - 

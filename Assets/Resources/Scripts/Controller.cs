@@ -6,9 +6,15 @@ public class Controller : MonoBehaviour
 {
     public static Controller PLAYER;
 
+    public Texture2D aim;
+    public GameObject gun;
+    public GameObject bullet;
+    public GameObject gun_exit;
+
     GameObject[] wheels;
     GameObject collider;
     public GameObject plane;
+
     public bool working = true;
 
     public bool car_mode = true;
@@ -44,6 +50,11 @@ public class Controller : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F3))
         {
             Application.LoadLevel(Application.loadedLevel);
+        }
+
+        if(Input.GetMouseButtonDown(0))
+        {
+            Shot();
         }
     }
 
@@ -108,5 +119,55 @@ public class Controller : MonoBehaviour
 
         rb.velocity = new Vector3(0, 0, f);
 
+    }
+
+    Vector3 aim_position;
+
+    public void Shot()
+    {
+        GameObject o = Instantiate(bullet);
+        o.transform.position = gun_exit.transform.position;
+        Debug.Log(gun.transform.forward);
+        o.GetComponent<Rigidbody>().AddForce(gun_exit.transform.forward * 1200f,ForceMode.Impulse);
+    }
+
+    private void OnDrawGizmos()
+    {
+        if(aim_position != Vector3.zero)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(aim_position, 0.5f);
+        }
+    }
+
+    private void OnGUI()
+    {
+        //Update game aim
+        if(working)
+        {
+            float max_aim_distance = 20f;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit inf;
+
+            int layerMask = ~LayerMask.GetMask("Gun");
+            layerMask = ~LayerMask.GetMask("Player");
+
+            if (Physics.Raycast(ray,out inf,max_aim_distance,layerMask))
+            {
+                aim_position = inf.point;
+            }
+            else
+            {
+                aim_position = ray.origin + ray.direction * max_aim_distance;
+            }
+
+            //Limit aim height
+            float distance = Vector2.Distance(new Vector2(aim_position.x, aim_position.z), new Vector2(transform.position.x, transform.position.z));
+            aim_position.y = Mathf.Max(aim_position.y, this.transform.position.y + 0.25f + gun.transform.localPosition.y - distance/1.5f);
+           
+         
+            GUI.DrawTexture(new Rect(Input.mousePosition.x - 20, (Screen.height - Input.mousePosition.y) - 20, 40, 40), aim);
+            gun.transform.LookAt(aim_position);
+        }
     }
 }

@@ -87,7 +87,7 @@ MeshCollider:
   m_GameObject: {fileID: 914494633422355763}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 0
   m_CookingOptions: 14
@@ -325,7 +325,7 @@ GameObject:
   - component: {fileID: 1528713364916830300}
   - component: {fileID: 4407477403706237073}
   - component: {fileID: 1376291869790042126}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: col
   m_TagString: Collidable
   m_Icon: {fileID: 0}
@@ -417,7 +417,7 @@ GameObject:
   - component: {fileID: 7058354464477345959}
   - component: {fileID: 6331386374652770859}
   - component: {fileID: 7132295790378858107}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: col (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -509,7 +509,7 @@ GameObject:
   - component: {fileID: 5457229657844700111}
   - component: {fileID: 7426300535867082066}
   - component: {fileID: 6493274587941816074}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: col (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -676,7 +676,7 @@ MeshCollider:
   m_GameObject: {fileID: 9147275133045520171}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 0
   m_CookingOptions: 14

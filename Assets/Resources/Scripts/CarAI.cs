@@ -351,7 +351,7 @@ public class CarAI : MonoBehaviour
     {
         if (!sp)
         {
-
+            working = false;
             yield return new WaitForSeconds(time);
             GameObject o = Instantiate(prefab);
             o.transform.position = new Vector3(pos_x, 0, Controller.PLAYER.transform.position.z - 10f);
@@ -371,6 +371,7 @@ public class CarAI : MonoBehaviour
 
     public void OnGUI()
     {
+        //Show next to spawn
         if (gameObject.transform.position.z < Camera.main.transform.position.z + 5f)
         {
             Vector3 screenPos = Camera.main.WorldToScreenPoint(gameObject.transform.position);
