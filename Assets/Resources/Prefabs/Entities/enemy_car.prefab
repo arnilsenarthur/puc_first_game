@@ -812,7 +812,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   car_indicator: {fileID: 2800000, guid: a7cb26f3432b0f64fa1f9ea928470478, type: 3}
-  prefab: {fileID: 0}
+  prefab: {fileID: 3077334698021889795}
   car_collider: {fileID: 3077334697488908171}
   wheels:
   - {fileID: 3077334698072196758}

@@ -89,7 +89,7 @@ public class CarController : MonoBehaviour
             }
 
             //Add car stability
-            rb.transform.rotation = Quaternion.RotateTowards(rb.transform.rotation, Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y, 0), 75f * Time.fixedDeltaTime);
+            rb.transform.rotation = Quaternion.RotateTowards(rb.transform.rotation, Quaternion.Euler(0, transform.eulerAngles.y, 0), 75f * Time.fixedDeltaTime);
 
             //Car turned more than max
             if(!(transform.eulerAngles.y < 70 || transform.eulerAngles.y > 360-70))

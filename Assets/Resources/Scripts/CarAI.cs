@@ -69,9 +69,11 @@ public class CarAI : MonoBehaviour
     bool turning_left = false;
     bool turning_right = false;
 
-    int lane = 0;
+    int lane = 1;
     bool sp = false;
     bool dest = false;
+    int current_quad = -10;
+
     void FixedUpdate()
     {
         if(Controller.PLAYER.transform.position.z - transform.position.z > 10)
@@ -102,10 +104,16 @@ public class CarAI : MonoBehaviour
         }
 
         //Change lane if needed
-        if (WorldGeneratorTest.WRLD.can_pass.Count > 0)
+        int quad = WorldGeneratorTest.WRLD.NextChunk(transform.position.z);
+        if (quad != current_quad)
         {
-            int[] possibilities = WorldGeneratorTest.WRLD.can_pass[WorldGeneratorTest.WRLD.last_can_pass];
-            lane = possibilities[(int)Random.Range(0, possibilities.Length - 1)];
+            current_quad = quad;
+            int[] possibilities = WorldGeneratorTest.WRLD.NextChunkLanes(transform.position.z);
+            if (possibilities != null)
+            {
+                lane = possibilities[(int)Random.Range(0, possibilities.Length - 1)];
+                Debug.Log("Change lane: " + lane);
+            }
         }
 
         //Update car speedometer
