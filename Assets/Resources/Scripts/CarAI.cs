@@ -282,6 +282,11 @@ public class CarAI : MonoBehaviour
                 rb.AddForce(fw * -acceleration, ForceMode.Acceleration);
             }
 
+            if(rb.velocity.z < 0)
+            {
+                rb.AddForce(new Vector3(0,0, -rb.velocity.z), ForceMode.Acceleration);
+            }
+
             if (speedometer < 0)
             {
                 rb.AddForce(fw * acceleration, ForceMode.Acceleration);
@@ -331,6 +336,13 @@ public class CarAI : MonoBehaviour
 
         Gizmos.color = raycast_lright ? Color.red : Color.green;
         Gizmos.DrawLine(pos - lateral, pos - lateral + rotr * raycast_distance/1.5f);
+
+        if(lane >= 0)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(new Vector3(-3 + lane * 3, 0, WorldGeneratorTest.WRLD.GetChunkSize() * current_quad),0.5f);
+      
+        }
     }
 
     private void OnCollisionEnter(Collision collision)

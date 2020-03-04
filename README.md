@@ -8,6 +8,7 @@
 <br/><br/>
 ### Links:
 * [Informações](#informações)
+* [Evolução da IA/AI](GitHub/AIEvolution.md)
 <br/><br/>
 # Journal
 * [29/02/2020 - Dia 1](GitHub/Journal/29-02-2020.md)

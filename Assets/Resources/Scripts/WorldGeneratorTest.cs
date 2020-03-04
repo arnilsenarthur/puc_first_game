@@ -157,6 +157,14 @@ public class WorldGeneratorTest : MonoBehaviour
     }
 
     /*
+    * Get chunk size
+    */
+    public float GetChunkSize()
+    {
+        return size_of_each;
+    }
+
+    /*
      * Get number of next chunk with obstacles
      */
     public int NextChunk(float z)
