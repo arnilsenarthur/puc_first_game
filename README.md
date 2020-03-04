@@ -1,11 +1,13 @@
 # Jogo Puc - Primeiro Período :video_game:
 
-![Last Print](https://media.githubusercontent.com/media/infobros2000/puc_first_game/master/GitHub/Images/02-03-2020%201.png)
+![Last Print](https://media.giphy.com/media/hQQoTPUdUPSU9qVy70/giphy.gif)
 
 ### Informações:
 **Criador:** Árnilsen Arthur Castilho Lopes<br/>
 **Data de Início:** 29/02/2020
 <br/><br/>
+### Downloads:
+[Versão 03-03-2020 (.zip Windows)](GitHub/Exports/Windows.zip)
 ### Links:
 * [Informações](#informações)
 * [Evolução da IA/AI](GitHub/AIEvolution.md)
