@@ -1,4 +1,4 @@
-[Voltar para o início](../../README.md)
+[Voltar para o início](../README.md)
 # :robot: Evolução da IA/AI :robot:
 ## AI dos carros inimigos
 ### 1 - Dia 03/03/2020
