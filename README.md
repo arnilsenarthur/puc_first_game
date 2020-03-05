@@ -6,8 +6,9 @@
 **Criador:** Árnilsen Arthur Castilho Lopes<br/>
 **Data de Início:** 29/02/2020
 <br/><br/>
-### Downloads:
-[Versão 03-03-2020 (.zip Windows)](GitHub/Exports/Windows.zip)
+### Downloads (Mais Recentes):
+[Versão 04-03-2020 (.zip Windows)](GitHub/Exports/04-03-2020-Windows.zip)
+[Versão 03-03-2020 (.zip Windows)](GitHub/Exports/03-03-2020-Windows.zip)
 ### Links:
 * [Informações](#informações)
 * [Evolução da IA/AI](GitHub/AIEvolution.md)
