@@ -150,7 +150,7 @@ public class CarAI : MonoBehaviour
             turning_right = false;
 
             //See if need to move in lanes
-            float target_x = lane == 0 ? -3f : (lane == 1 ? 0 : 3f);
+            float target_x = WorldGeneratorTest.lanes_positon[lane];
 
             float turn_speed = this.turn_speed;
 
@@ -340,7 +340,7 @@ public class CarAI : MonoBehaviour
         if(lane >= 0)
         {
             Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(new Vector3(-3 + lane * 3, 0, WorldGeneratorTest.WRLD.GetChunkSize() * current_quad),0.5f);
+            Gizmos.DrawWireSphere(new Vector3(WorldGeneratorTest.lanes_positon[lane], 0, WorldGeneratorTest.WRLD.GetChunkSize() * current_quad),0.5f);
       
         }
     }

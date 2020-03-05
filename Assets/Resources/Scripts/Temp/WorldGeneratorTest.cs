@@ -5,13 +5,15 @@ using UnityEngine;
 public class WorldGeneratorTest : MonoBehaviour
 {
     public static WorldGeneratorTest WRLD;
+    public static float[] lanes_positon = {-3.75f, -1.25f, 1.25f, 3.75f};
 
     //Global
     public GameObject road_prefab;
     public GameObject cube_prefab;
     public GameObject ramp_prefab;
-    float size_of_each = 9f;
+    float size_of_each = 10f;
     float start_at = -3;
+
 
 
     float f = 0;
@@ -92,50 +94,65 @@ public class WorldGeneratorTest : MonoBehaviour
 
         if (i % 8 == 0)
         {
-            int type = (int) Random.Range(2, 8);
+            int type = (int) Random.Range(2, 7);
+            // B--B
             if (type == 2)
             {
-                createObstacle(o, -3);
                 createObstacle(o, 0);
-                can_pass[i] = new int[] { 2 };
-               
-            }
-            if (type == 3)
-            {
-                createObstacle(o, -3);
                 createObstacle(o, 3);
-                can_pass[i] = new int[] { 1 };
+
+                can_pass[i] = new int[] { 1,2 };          
             }
 
+            // -BB-
+            if (type == 3)
+            {
+                createObstacle(o, 1);
+                createObstacle(o, 2);
+
+                can_pass[i] = new int[] { 0, 3 };
+            }
+
+            // BRRB
             if (type == 4)
             {
                 createObstacle(o, 0);
                 createObstacle(o, 3);
-                can_pass[i] = new int[] { 0 };
+                createRamp(o, 1);
+                createRamp(o, 2);
+
+                can_pass[i] = new int[] { 1, 2 };
             }
 
-            //Ramp in midle
+            // RBBR
             if (type == 5)
             {
-                createRamp(o,0);
-                can_pass[i] = new int[] { 0,1,2};
+                createObstacle(o, 1);
+                createObstacle(o, 2);
+                createRamp(o, 0);
+                createRamp(o, 3);
+
+                can_pass[i] = new int[] { 0, 3 };
             }
 
+            //R--R
             if (type == 6)
             {
-                createObstacle(o, -3);
                 createRamp(o, 0);
-                createObstacle(o, 3);
-                can_pass[i] = new int[] {1};
+                createRamp(o, 3);
+
+                can_pass[i] = new int[] { 0,1,2,3 };
             }
 
+            //-RR-
             if (type == 7)
             {
-                createRamp(o, -3);
-                createRamp(o,0);
-                createRamp(o, 3);
-                can_pass[i] = new int[] { 0, 1, 2 };
+                createRamp(o, 1);
+                createRamp(o, 2);
+
+                can_pass[i] = new int[] { 0, 1, 2, 3 };
             }
+
 
             can_pass_keys.Add(i);
             last_can_pass = i;
@@ -160,24 +177,24 @@ public class WorldGeneratorTest : MonoBehaviour
             {
                 GameObject c = Instantiate(Game.game.prefab_coin);
                 c.transform.parent = h.transform;
-                c.transform.localPosition = new Vector3(-3 + lane * 3, 1f, (i-size_of_each/2) * 3f);
+                c.transform.localPosition = new Vector3(lanes_positon[lane], 1f, (i-size_of_each/2) * 3f);
             }
         }
     }
 
 
-    void createObstacle(GameObject h,float x_pos)
+    void createObstacle(GameObject h,int lane)
     {
         GameObject ob = Instantiate(cube_prefab);
         ob.transform.parent = h.transform;
-        ob.transform.localPosition = new Vector3(x_pos, 0, 0);
+        ob.transform.localPosition = new Vector3(lanes_positon[lane], 0, 0);
     }
 
-    void createRamp(GameObject h, float x_pos)
+    void createRamp(GameObject h, int lane)
     {
         GameObject ob = Instantiate(ramp_prefab);
         ob.transform.parent = h.transform;
-        ob.transform.localPosition = new Vector3(x_pos, 0, 0);
+        ob.transform.localPosition = new Vector3(lanes_positon[lane], 0, 0);
     }
 
     /*
