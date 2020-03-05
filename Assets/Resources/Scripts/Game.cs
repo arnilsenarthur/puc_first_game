@@ -18,7 +18,7 @@ public class Game : MonoBehaviour
     public GameObject prefab_coin;
     public GameObject prefab_wrench;
 
-    private void Start()
+    private void Awake()
     {
         game = this;
         data = new GameData();
