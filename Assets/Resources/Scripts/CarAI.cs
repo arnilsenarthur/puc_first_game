@@ -39,6 +39,7 @@ public class CarAI : MonoBehaviour
      */
     public GameObject car_collider;
     public GameObject[] wheels;
+    public WheelCollider[] wheels_colliders;
 
     float f = 2;
 
@@ -156,7 +157,7 @@ public class CarAI : MonoBehaviour
 
             if (transform.position.x - target_x > 0.3f)
             {
-                turning_left = true;
+                turning_left = true && ((wheels_colliders[0].isGrounded && wheels_colliders[1].isGrounded) || (wheels_colliders[2].isGrounded && wheels_colliders[3].isGrounded));
                 if (!raycast_lleft)
                 {      
                     turn_speed *= (transform.position.x - target_x) / 10f;
@@ -165,7 +166,7 @@ public class CarAI : MonoBehaviour
             }
             else if (transform.position.x - target_x < -0.3f)
             {
-                turning_right = true;
+                turning_right = true && ((wheels_colliders[0].isGrounded && wheels_colliders[1].isGrounded) || (wheels_colliders[2].isGrounded && wheels_colliders[3].isGrounded));
                 if (!raycast_lright)
                 { 
                     turn_speed *= (transform.position.x - target_x) / -10f;
