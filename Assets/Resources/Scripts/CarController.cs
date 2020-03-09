@@ -89,10 +89,11 @@ public class CarController : MonoBehaviour
             }
 
             //Add car stability
-            rb.transform.rotation = Quaternion.RotateTowards(rb.transform.rotation, Quaternion.Euler(0, transform.eulerAngles.y, 0), 75f * Time.fixedDeltaTime);
-
+            rb.transform.rotation = Quaternion.RotateTowards(rb.transform.rotation, Quaternion.Euler(0, transform.eulerAngles.y, transform.eulerAngles.z), 75f * Time.fixedDeltaTime);
+            rb.transform.rotation = Quaternion.RotateTowards(rb.transform.rotation, Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y, 0), 120f * Time.fixedDeltaTime);
+           
             //Car turned more than max
-            if(!(transform.eulerAngles.y < 70 || transform.eulerAngles.y > 360-70))
+            if (!(transform.eulerAngles.y < 70 || transform.eulerAngles.y > 360-70))
             {
                 working = false;
                 rb.AddForce(new Vector3(0, 0, 1) * acceleration * 20f, ForceMode.Acceleration);
@@ -147,7 +148,7 @@ public class CarController : MonoBehaviour
 
         if (collision.relativeVelocity.magnitude > 3)
         {
-            car_collider.GetComponent<DeformableMesh>().OnCollisionEnter(collision);
+           // car_collider.GetComponent<DeformableMesh>().OnCollisionEnter(collision);
         }
 
         if (collision.other.tag != "Collidable")

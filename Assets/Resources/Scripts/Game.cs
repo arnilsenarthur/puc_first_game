@@ -18,6 +18,8 @@ public class Game : MonoBehaviour
     public GameObject prefab_coin;
     public GameObject prefab_wrench;
 
+
+
     private void Awake()
     {
         game = this;
@@ -36,9 +38,12 @@ public class Game : MonoBehaviour
         player_audio_sources[current_audio_source].Play();
     }
 
+    //Data of current game
     public class GameData
     {
         public int coins = 0;
+        public int life = 0;
+        public int max_lifes = 3;
     }
 
     private void OnGUI()

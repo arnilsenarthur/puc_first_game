@@ -285,7 +285,7 @@ public class CarAI : MonoBehaviour
 
             if(rb.velocity.z < 0)
             {
-                rb.AddForce(new Vector3(0,0, -rb.velocity.z), ForceMode.Acceleration);
+                rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, 0);
             }
 
             if (speedometer < 0)
