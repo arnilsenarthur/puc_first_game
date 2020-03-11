@@ -7,6 +7,7 @@
 **Data de Início:** 29/02/2020
 <br/><br/>
 ### Downloads (Mais Recentes):
+* [Versão 10-03-2020 (.zip Windows)](GitHub/Exports/10-03-2020-Windows.zip)
 * [Versão 04-03-2020 (.zip Windows)](GitHub/Exports/04-03-2020-Windows.zip)
 * [Versão 03-03-2020 (.zip Windows)](GitHub/Exports/03-03-2020-Windows.zip)
 ### Links:
@@ -20,4 +21,4 @@
 * [03/03/2020 - Dia 4](GitHub/Journal/03-03-2020.md)
 * [04/03/2020 - Dia 5](GitHub/Journal/04-03-2020.md)
 * [05/03/2020 - Dia 6](GitHub/Journal/05-03-2020.md)
-
+* [10/03/2020 - Dia 7](GitHub/Journal/10-03-2020.md)
