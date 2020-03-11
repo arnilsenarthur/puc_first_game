@@ -19,9 +19,10 @@ public class Game : MonoBehaviour
     public GameObject prefab_wrench;
 
 
-
+    public float camera_start_position = 0;
     private void Awake()
     {
+        camera_start_position = Camera.main.transform.position.z;
         game = this;
         data = new GameData();
     }
@@ -49,8 +50,14 @@ public class Game : MonoBehaviour
     private void OnGUI()
     {
         string s = "Coins: " + data.coins;
+      
         int size = (int) GUI.skin.label.CalcSize(new GUIContent(s)).x;
         GUI.Label(new Rect(Screen.width - size - 10, 10, size, 20), s);
+
+        s = "Distance: " + (Camera.main.transform.position.z - camera_start_position);
+
+        size = (int)GUI.skin.label.CalcSize(new GUIContent(s)).x;
+        GUI.Label(new Rect(Screen.width - size - 10, 30, size, 20), s);
     }
 
 }

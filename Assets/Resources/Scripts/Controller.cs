@@ -12,7 +12,9 @@ public class Controller : MonoBehaviour
     public GameObject gun_exit;
 
     GameObject[] wheels;
+    WheelCollider[] wheel_colliders;
     GameObject collider;
+
     public GameObject plane;
 
     public bool working = true;
@@ -64,6 +66,7 @@ public class Controller : MonoBehaviour
     {
         wheels = gameObject.GetComponent<CarController>().wheels;
         collider = gameObject.GetComponent<CarController>().car_collider;
+        wheel_colliders = gameObject.GetComponent<CarController>().wheels_colliders;
 
         Destroy(gameObject.GetComponent<CarController>());
         Rigidbody rb = GetComponent<Rigidbody>();
@@ -111,6 +114,7 @@ public class Controller : MonoBehaviour
 
         gameObject.GetComponent<CarController>().wheels = wheels;
         gameObject.GetComponent<CarController>().car_collider = collider;
+        gameObject.GetComponent<CarController>().wheels_colliders = wheel_colliders;
 
         foreach (GameObject o in wheels)
         {

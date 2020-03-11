@@ -11,6 +11,10 @@ public class WorldGeneratorTest : MonoBehaviour
     public GameObject road_prefab;
     public GameObject cube_prefab;
     public GameObject ramp_prefab;
+    public GameObject kilometer_sign_prefab;
+    public GameObject[] shop_sign_prefab;
+    public GameObject[] alphabet_prefab;
+
     float size_of_each = 10f;
     float start_at = -3;
 
@@ -57,6 +61,7 @@ public class WorldGeneratorTest : MonoBehaviour
 
     void GenerateNewRoad()
     {
+        //Generate Road
         GameObject o = Instantiate(road_prefab);
         i++;
         o.name = "Chunk " + i;
@@ -73,25 +78,7 @@ public class WorldGeneratorTest : MonoBehaviour
             roads.RemoveAt(0);
         }
 
-
-
-        /*
-         *  BB-
-         *  B-B
-         *  -BB
-         *  -B-
-         *  
-         *  RBR
-         *  BRB
-         *  RRR
-         *  R
-         *   R
-         *    R
-         */
-
-        //obstacles BB-
-
-
+        //Generate obstacles
         if (i % 8 == 0)
         {
             int type = (int) Random.Range(2, 7);
@@ -164,9 +151,68 @@ public class WorldGeneratorTest : MonoBehaviour
         }
         else
         {
-           // int lane = (int) Random.Range(0, 2);
-      
+          
         }
+
+        //Generate decoration
+        //Kilometer sign
+        if(i%50 == 0)
+        {
+            GameObject sign_1 = InstantiateAndSetParent(kilometer_sign_prefab,o);
+            sign_1.transform.localPosition = new Vector3(-7.5f, 1, 10);
+            SetSignNumber(sign_1, i/10);
+
+            GameObject sign_2 = InstantiateAndSetParent(kilometer_sign_prefab,o);
+            sign_2.transform.localPosition = new Vector3(7.5f, 1, 10);
+            SetSignNumber(sign_2, i/10);
+
+        }
+        else if(i%((int) Random.Range(3,7)) == 0)
+        {
+            bool a = Random.Range(0, 10) % 2 == 0;
+
+            bool b = Random.Range(0, 10) % 2 == 0;
+
+          
+            if(a)
+            {
+                GameObject sign = InstantiateAndSetParent(shop_sign_prefab[(int) Random.Range(0,shop_sign_prefab.Length - 1)], o);
+                sign.transform.localPosition = new Vector3(-7.5f, 1.6f, 10);
+            }
+
+            if (b)
+            {
+                GameObject sign = InstantiateAndSetParent(shop_sign_prefab[(int)Random.Range(0, shop_sign_prefab.Length - 1)], o);
+                sign.transform.localPosition = new Vector3(7.5f, 1.6f, 10);
+            }
+
+        }
+    }
+
+    void SetSignNumber(GameObject o,int number)
+    {
+
+        InstantiateAndSetParentReset(alphabet_prefab[Mathf.FloorToInt(number / 100)], o.transform.Find("number_0").gameObject);
+        InstantiateAndSetParentReset(alphabet_prefab[Mathf.FloorToInt(number / 10)%10], o.transform.Find("number_1").gameObject);
+        InstantiateAndSetParentReset(alphabet_prefab[number%10], o.transform.Find("number_2").gameObject);
+
+    }
+
+    GameObject InstantiateAndSetParentReset(GameObject prefab, GameObject parent)
+    {
+        GameObject o = Instantiate(prefab);
+        o.transform.parent = parent.transform;
+        o.transform.localPosition = Vector3.zero;
+        o.transform.localEulerAngles = Vector3.zero;
+        o.transform.localScale = Vector3.one;
+        return o;
+    }
+
+    GameObject InstantiateAndSetParent(GameObject prefab,GameObject parent)
+    {
+        GameObject o = Instantiate(prefab);
+        o.transform.parent = parent.transform;
+        return o;
     }
 
     void GenerateCoinsInLane(int lane,GameObject h,bool ignore_pos)
@@ -187,7 +233,8 @@ public class WorldGeneratorTest : MonoBehaviour
     {
         GameObject ob = Instantiate(cube_prefab);
         ob.transform.parent = h.transform;
-        ob.transform.localPosition = new Vector3(lanes_positon[lane], 0, 0);
+        ob.transform.eulerAngles = new Vector3(0, Random.Range(0,360), 0);
+        ob.transform.localPosition = new Vector3(lanes_positon[lane], 0.06F, 0);
     }
 
     void createRamp(GameObject h, int lane)

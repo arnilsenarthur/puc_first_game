@@ -22,6 +22,7 @@ public class CarController : MonoBehaviour
      */
     public GameObject car_collider;
     public GameObject[] wheels;
+    public WheelCollider[] wheels_colliders;
 
     /*
      * Start method
@@ -89,7 +90,8 @@ public class CarController : MonoBehaviour
             }
 
             //Add car stability
-            rb.transform.rotation = Quaternion.RotateTowards(rb.transform.rotation, Quaternion.Euler(0, transform.eulerAngles.y, transform.eulerAngles.z), 75f * Time.fixedDeltaTime);
+            if(!wheels_colliders[0].isGrounded && !wheels_colliders[1].isGrounded && !wheels_colliders[2].isGrounded && !wheels_colliders[3].isGrounded)
+            rb.transform.rotation = Quaternion.RotateTowards(rb.transform.rotation, Quaternion.Euler(0, transform.eulerAngles.y, transform.eulerAngles.z), 50f * Time.fixedDeltaTime);
             rb.transform.rotation = Quaternion.RotateTowards(rb.transform.rotation, Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y, 0), 120f * Time.fixedDeltaTime);
            
             //Car turned more than max
