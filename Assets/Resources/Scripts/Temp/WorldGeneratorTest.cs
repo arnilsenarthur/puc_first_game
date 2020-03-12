@@ -25,6 +25,8 @@ public class WorldGeneratorTest : MonoBehaviour
   
 
     public int colliders_amount = 0;
+
+    public float[] building_z = {0,0};
    
 
     bool start_to_delete = false;
@@ -39,6 +41,10 @@ public class WorldGeneratorTest : MonoBehaviour
     void Start()
     {
         f = start_at * size_of_each;
+
+        building_z[0] = f;
+        building_z[1] = f;
+
         WRLD = this;
         for (int i = 0; i < 14; i ++)
         GenerateNewRoad();
@@ -186,6 +192,28 @@ public class WorldGeneratorTest : MonoBehaviour
                 sign.transform.localPosition = new Vector3(7.5f, 1.6f, 10);
             }
 
+        }
+
+        //Generate building if need 
+        for(int j = 0; j < 1; j ++)
+        {
+            //Generate buildings until reach
+            while (f >= building_z[j])
+            {
+                Debug.Log("Needs to generate: " + j + " " + i);
+                GameObject p = GameObject.CreatePrimitive(PrimitiveType.Plane);
+
+                float size = Random.Range(5,9);
+                p.transform.localScale = new Vector3(0.1f * size, 0.1f, 0.1f * size);
+                p.transform.position = new Vector3(-Building.space_from_center_of_road - size/2f, 0,building_z[j] + size/2f);
+                p.GetComponent<Renderer>().material.color = new Color(
+                      Random.Range(0f, 1f),
+                      Random.Range(0f, 1f),
+                      Random.Range(0f, 1f)
+                  );
+                p.transform.parent = o.transform;
+                building_z[j] += size;
+            }
         }
     }
 

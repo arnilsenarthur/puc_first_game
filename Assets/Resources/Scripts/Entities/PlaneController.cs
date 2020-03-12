@@ -55,7 +55,8 @@ public class PlaneController : MonoBehaviour
 
             if (Input.GetKey(KeyCode.UpArrow) && (rb.transform.position.y > 4.5f))
             {
-                rb.transform.localRotation = Quaternion.RotateTowards(rb.transform.localRotation, Quaternion.Euler(max_y_move, transform.localEulerAngles.y, transform.localEulerAngles.z), 30f * Time.fixedDeltaTime);
+                if (rb.transform.position.y > 4.75f)
+                    rb.transform.localRotation = Quaternion.RotateTowards(rb.transform.localRotation, Quaternion.Euler(max_y_move, transform.localEulerAngles.y, transform.localEulerAngles.z), 30f * Time.fixedDeltaTime);
                 rb.AddForce(new Vector3(0, -5, 0), ForceMode.Acceleration);
             }
             else if (Input.GetKey(KeyCode.DownArrow))
@@ -77,7 +78,7 @@ public class PlaneController : MonoBehaviour
                 rb.AddForce(new Vector3(0, 8f, 0), ForceMode.Acceleration);
             }
 
-            Camera.main.transform.position = new Vector3(0, Mathf.Lerp(Camera.main.transform.position.y, transform.position.y + 1.536f, 2f * Time.fixedDeltaTime), gameObject.transform.position.z - 7);
+            Camera.main.transform.position = new Vector3(0, Mathf.Lerp(Camera.main.transform.position.y, transform.position.y + 1.536f, 1f * Time.fixedDeltaTime), gameObject.transform.position.z - 7);
 
         }
         else
@@ -95,7 +96,7 @@ public class PlaneController : MonoBehaviour
                 rb.AddForce(new Vector3(0, -rb.velocity.y * 3f, 0), ForceMode.Acceleration);
             }
             rb.transform.localRotation = Quaternion.RotateTowards(rb.transform.localRotation, Quaternion.Euler(-max_y_move, 0, 0), 50f * Time.fixedDeltaTime);
-            Camera.main.transform.position = new Vector3(0, Mathf.Lerp(Camera.main.transform.position.y, transform.position.y + 1.536f, 4f * Time.fixedDeltaTime), gameObject.transform.position.z - 7);
+            Camera.main.transform.position = new Vector3(0, Mathf.Lerp(Camera.main.transform.position.y, transform.position.y + 1.536f, 1f * Time.fixedDeltaTime), gameObject.transform.position.z - 7);
 
         }
 
