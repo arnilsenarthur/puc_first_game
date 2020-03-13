@@ -57,6 +57,7 @@ Shader "Custom/Bendy diffuse - Radial - Only VColor"
 			dist = max(0, dist - _FlatMargin);
 			
 			wpos.y += dist * dist * _Curvature * waveMultiplier;
+			wpos.x -= dist * dist * _Curvature * waveMultiplier;
 			
 			wpos = mul (unity_WorldToObject, wpos);
 			

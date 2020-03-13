@@ -14,6 +14,8 @@ public class WorldGeneratorTest : MonoBehaviour
     public GameObject kilometer_sign_prefab;
     public GameObject[] shop_sign_prefab;
     public GameObject[] alphabet_prefab;
+    public GameObject build_prefab;
+    public GameObject tunnel_prefab;
 
     float size_of_each = 10f;
     float start_at = -3;
@@ -25,8 +27,11 @@ public class WorldGeneratorTest : MonoBehaviour
   
 
     public int colliders_amount = 0;
-
+    
+    //Building info
     public float[] building_z = {0,0};
+    public bool try_to_build_in_both_sides = false;
+    public float last_both_side_building = -1;
    
 
     bool start_to_delete = false;
@@ -46,7 +51,7 @@ public class WorldGeneratorTest : MonoBehaviour
         building_z[1] = f;
 
         WRLD = this;
-        for (int i = 0; i < 14; i ++)
+        for (int i = 0; i < 16; i ++)
         GenerateNewRoad();
         
         start_to_delete = true;
@@ -195,26 +200,141 @@ public class WorldGeneratorTest : MonoBehaviour
         }
 
         //Generate building if need 
-        for(int j = 0; j < 1; j ++)
+        if (try_to_build_in_both_sides)
         {
-            //Generate buildings until reach
+            if (f >= building_z[0] && f >= building_z[1])
+            {
+                if (building_z[0] == building_z[1])
+                {
+                    //Generate same building 
+                    Debug.Log("Same Size");
+
+                    //Do the build
+                    float f = doBothSideBuilding(building_z[0],i);
+                    building_z[0] += f;
+                    building_z[1] += f;
+                    try_to_build_in_both_sides = false;
+
+                    last_both_side_building = building_z[0];
+                   
+                }
+                else if (building_z[0] > building_z[1])
+                {
+                    float dif = Mathf.Abs(building_z[0] - building_z[1]);
+
+                    float ra = Mathf.Round(Random.Range(16, 30 - dif));
+                    float rb = Mathf.Round(ra + Random.Range(1, dif));
+
+                    Debug.Log("Left is bigger... Rearranjing...");
+                  //  Debug.Log("--------------------");
+                   // Debug.Log("Distance: " + dif);
+                   // Debug.Log("Pre BSize: " + building_z[0] + " " + building_z[1]);
+                   
+
+                    building_z[0] += doBuildFixedSize(Mathf.Min(ra, rb), 0, building_z[0], o);
+                    building_z[1] += doBuildFixedSize(Mathf.Max(ra, rb), 1, building_z[1], o);
+
+                  //  Debug.Log("Pos BSize: " + building_z[0] + " " + building_z[1]);
+                   // Debug.Log("--------------------");
+
+
+                }
+                else
+                {
+                    float dif = Mathf.Abs(building_z[0] - building_z[1]);
+
+                    float ra = Mathf.Round(Random.Range(16, 30 - dif));
+                    float rb = Mathf.Round(ra + Random.Range(1, dif));
+
+                    Debug.Log("Right is bigger... Rearranjing...");
+                   // Debug.Log("--------------------");
+                   // Debug.Log("Distance: " + dif);
+                   // Debug.Log("Pre BSize: " + building_z[0] + " " + building_z[1]);
+
+                    building_z[0] += doBuildFixedSize(Mathf.Max(ra, rb), 0, building_z[0], o);
+                    building_z[1] += doBuildFixedSize(Mathf.Min(ra, rb), 1, building_z[1], o);
+
+                 //   Debug.Log("Pos BSize: " + building_z[0] + " " + building_z[1]);
+                  //  Debug.Log("--------------------");
+                }
+            }
+        }
+        else
+        for (int j = 0; j < 2; j ++)
+        {
             while (f >= building_z[j])
             {
                 Debug.Log("Needs to generate: " + j + " " + i);
-                GameObject p = GameObject.CreatePrimitive(PrimitiveType.Plane);
 
-                float size = Random.Range(5,9);
-                p.transform.localScale = new Vector3(0.1f * size, 0.1f, 0.1f * size);
-                p.transform.position = new Vector3(-Building.space_from_center_of_road - size/2f, 0,building_z[j] + size/2f);
-                p.GetComponent<Renderer>().material.color = new Color(
-                      Random.Range(0f, 1f),
-                      Random.Range(0f, 1f),
-                      Random.Range(0f, 1f)
-                  );
-                p.transform.parent = o.transform;
+                //Create a build
+                float size = doBuild(16, 30,j, building_z[j],o);
+             
                 building_z[j] += size;
             }
         }
+
+        if(Mathf.Abs(f - last_both_side_building) >= 100 && !try_to_build_in_both_sides && (i % 50 != 0))
+        {
+            try_to_build_in_both_sides = true;
+        }
+
+        //Parent to both side buildings
+        for (int i = unparented_both_side_building.Count - 1; i >= 0; i--)
+        {
+            if (unparented_both_side_building[i].transform.position.y >= f)
+            {
+                unparented_both_side_building[i].transform.parent = o.transform;
+                unparented_both_side_building.RemoveAt(i);
+            }
+        }
+    }
+
+    public List<GameObject> unparented_both_side_building = new System.Collections.Generic.List<GameObject>();
+
+    float doBothSideBuilding(float z_position,int current_chunk_index)
+    {
+        float pz = 0;
+
+        int i = Random.Range(1, 10);
+        int j = 0;
+        while(i > 0 && (current_chunk_index + j)%50 != 0)
+        {
+            i--;
+            j++;
+
+            GameObject p = Instantiate(tunnel_prefab);
+            p.transform.position = new Vector3(0, 5.69f, z_position + pz + 5f);
+
+            unparented_both_side_building.Add(p);
+            pz += 10;
+        }
+
+        return pz;
+    }
+
+    float doBuild(int min_size,int max_size,int side,float z_position,GameObject chunk_parent)
+    {
+        float size = Random.Range(min_size, max_size);
+
+        doBuildFixedSize(size, side, z_position, chunk_parent);
+
+        return size;
+    }
+
+    float doBuildFixedSize(float size, int side, float z_position, GameObject chunk_parent)
+    {
+        float h = Random.Range(0, 8) + 10;
+        GameObject p = Instantiate(build_prefab);
+        p.transform.localScale = new Vector3(1f * size, h, 1f * size);
+        p.transform.position = new Vector3(side == 1 ? (-Building.space_from_center_of_road - size / 2f) : (Building.space_from_center_of_road + size / 2f), h / 2, z_position + size / 2f);
+        p.GetComponent<Renderer>().material.color = new Color(
+              Random.Range(0f, 1f),
+              Random.Range(0f, 1f),
+              Random.Range(0f, 1f)
+          );
+        p.transform.parent = chunk_parent.transform;
+
+        return size;
     }
 
     void SetSignNumber(GameObject o,int number)

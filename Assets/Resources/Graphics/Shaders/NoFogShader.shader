@@ -2,7 +2,8 @@
 // Upgrade NOTE: replaced '_World2Object' with 'unity_WorldToObject'
 
 //https://www.youtube.com/watch?v=AxE77Z4EeIk
-Shader "Custom/Bendy diffuse - Radial" 
+/*
+Shader "Custom/Bendy diffuse - Radial - Only VColor No Fog" 
 {
 	Properties 
 	{
@@ -10,13 +11,15 @@ Shader "Custom/Bendy diffuse - Radial"
 		_MainTex ("Base (RGB)", 2D) = "white" {}
 	}
 
+
 	SubShader 
 	{
 		Tags { "RenderType"="Opaque" }
+		Fog{ Mode Off }
 		LOD 200
-
+		Lighting Off
 		CGPROGRAM
-		#pragma surface surf Lambert vertex:vert addshadow
+		#pragma surface surf Lambert vertex:vert addshadow nofog 
 		#pragma multi_compile __ HORIZON_WAVES 
 		#pragma multi_compile __ BEND_ON
 
@@ -57,7 +60,6 @@ Shader "Custom/Bendy diffuse - Radial"
 			dist = max(0, dist - _FlatMargin);
 			
 			wpos.y += dist * dist * _Curvature * waveMultiplier;
-			wpos.x -= dist * dist * _Curvature * waveMultiplier;
 			
 			wpos = mul (unity_WorldToObject, wpos);
 			
@@ -73,7 +75,7 @@ Shader "Custom/Bendy diffuse - Radial"
 
 		void surf (Input IN, inout SurfaceOutput o) 
 		{
-			fixed4 c = tex2D(_MainTex, IN.uv_MainTex) * IN.color;
+			fixed4 c = tex2D(_MainTex, IN.uv_MainTex) * _Color;
 			o.Albedo = c.rgb;
 			o.Alpha = c.a;
 		}
@@ -81,4 +83,19 @@ Shader "Custom/Bendy diffuse - Radial"
 	}
 
 	Fallback "Legacy Shaders/Diffuse"
+}
+*/
+
+Shader "Custom Sky" {
+
+	Properties{
+		_Color("Color", Color) = (1,1,1)
+	}
+
+		SubShader{
+		Fog{ Mode Off }
+		Color[_Color]
+		Pass{}
+	}
+
 }

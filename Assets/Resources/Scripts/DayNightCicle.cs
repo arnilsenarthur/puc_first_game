@@ -7,7 +7,7 @@ public class DayNightCicle : MonoBehaviour
     Light l;
 
     //floats from 0 to 24
-    public float day_time_circle = 0f;
+    public static float day_time_circle = 6f;
 
 
     void Awake()
@@ -41,7 +41,7 @@ public class DayNightCicle : MonoBehaviour
             l.color = new Color(0.04855575f, 0.02936988f, 0.4150943f);
         }
         
-      day_time_circle += Time.fixedDeltaTime/2f;
+      day_time_circle += Time.fixedDeltaTime/8f;
       day_time_circle %= 24;
     }
 }
