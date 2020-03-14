@@ -98,7 +98,7 @@ public class CarController : MonoBehaviour
             if (!(transform.eulerAngles.y < 70 || transform.eulerAngles.y > 360-70))
             {
                 working = false;
-                rb.AddForce(new Vector3(0, 0, 1) * acceleration * 20f, ForceMode.Acceleration);
+                //rb.AddForce(new Vector3(0, 0, 1) * acceleration * 20f, ForceMode.Acceleration);
             }
 
             //Max speed limit
@@ -113,7 +113,10 @@ public class CarController : MonoBehaviour
                 rb.AddForce(fw * acceleration, ForceMode.Acceleration);
             }
         }
-      
+        else
+        {          
+            rb.AddForce(new Vector3(0,0, -rb.velocity.z / 2f), ForceMode.Impulse);
+        }
 
         //Tires rotation animation
         foreach (GameObject o in wheels)

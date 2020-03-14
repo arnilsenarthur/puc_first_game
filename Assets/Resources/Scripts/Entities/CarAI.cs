@@ -342,7 +342,7 @@ public class CarAI : MonoBehaviour
         {
             Gizmos.color = Color.yellow;
             Gizmos.DrawWireSphere(new Vector3(WorldGeneratorTest.lanes_positon[lane], 0, WorldGeneratorTest.WRLD.GetChunkSize() * current_quad),0.5f);
-      
+   
         }
     }
 
