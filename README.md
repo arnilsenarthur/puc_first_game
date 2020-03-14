@@ -22,4 +22,4 @@
 * [04/03/2020 - Dia 5](GitHub/Journal/04-03-2020.md)
 * [05/03/2020 - Dia 6](GitHub/Journal/05-03-2020.md)
 * [10/03/2020 - Dia 7](GitHub/Journal/10-03-2020.md)
-* [13/03/2020 - Dia 7](GitHub/Journal/13-03-2020.md)
+* [13/03/2020 - Dia 8](GitHub/Journal/13-03-2020.md)
